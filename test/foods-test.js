@@ -55,7 +55,8 @@ test.describe('visit foods.html', function () {
       .click()
 
     driver.wait(until.elementLocated({css: "tr[data-id='11']"}))
-    driver.findElement({css: "tr[data-id='11']"}).getText()
+    driver.findElement({css: "tr[data-id='11']"})
+    .getText()
     .then(function(food){
       assert.include(food, "Pizza")
       assert.include(food, 350)
@@ -70,7 +71,8 @@ test.describe('visit foods.html', function () {
     driver.findElement({css: "input[name='add-food-button']"})
       .click()
 
-    driver.findElement({css: "div[class='name-validation-error']"}).getText()
+    driver.findElement({css: "div[class='name-validation-error']"})
+    .getText()
     .then(function(error){
       assert.equal(error, "Please enter a food name")
     })
@@ -84,9 +86,45 @@ test.describe('visit foods.html', function () {
     driver.findElement({css: "input[name='add-food-button']"})
       .click()
 
-    driver.findElement({css: "div[class='calories-validation-error']"}).getText()
+    driver.findElement({css: "div[class='calories-validation-error']"})
+    .getText()
     .then(function(error){
       assert.equal(error, "Please enter a calorie amount")
+    })
+  })
+
+  test.it('should clear form fields and error messages when food is created', function () {
+
+    driver.get(`${rootPath}/foods.html`)
+    driver.findElement({css: "input[name='food-name']"})
+      .sendKeys("Squash")
+    driver.findElement({css: "input[name='food-calories']"})
+      .sendKeys("300")
+    driver.findElement({css: "input[name='add-food-button']"})
+      .click()
+
+    driver.wait(until.elementLocated({css: "tr[data-id='11']"}))
+    driver.findElement({css: "input[name='food-name']"})
+    .getText()
+    .then(function(inputField){
+      assert.equals(inputField, "")
+    })
+    driver.findElement({css: "input[name='food-calories']"})
+    .getText()
+    .then(function(inputField){
+      assert.equals(inputField, "")
+    })
+  })
+    driver.findElement({css: "div[class='food-validation-error']"})
+    .getText()
+    .then(function(inputField){
+      assert.equals(inputField, "")
+    })
+  })
+    driver.findElement({css: "div[class='calories-validation-error']"})
+    .getText()
+    .then(function(inputField){
+      assert.equals(inputField, "")
     })
   })
 })
