@@ -74,7 +74,7 @@ test.describe('visit foods.html', function () {
 
     driver.findElements({css: ".delete-button"})
       .then(function(foods){
-        assert.lengthOf(foods, 8)
+        assert.lengthOf(foods, 10)
       })
   })
 
