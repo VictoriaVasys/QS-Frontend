@@ -37,10 +37,28 @@ test.describe('visit foods.html', function () {
     driver.findElement({css: "input[name='add-food-button']"})
       .click()
 
-    driver.wait(until.elementLocated({css: "tr[data-id='10']"}))
+    driver.wait(until.elementLocated({css: "tr[data-id='9']"}))
     driver.findElements({css: "#foods-table .food"})
     .then(function(foods){
-      assert.lengthOf(foods, 10)
+      assert.lengthOf(foods, 9)
+    })
+  })
+
+  test.it('should create a new food and prepend it to the table', function () {
+
+    driver.get(`${rootPath}/foods.html`)
+    driver.findElement({css: "input[name='food-name']"})
+      .sendKeys("Pizza")
+    driver.findElement({css: "input[name='food-calories']"})
+      .sendKeys("350")
+    driver.findElement({css: "input[name='add-food-button']"})
+      .click()
+
+    driver.wait(until.elementLocated({css: "tr[data-id='10']"}))
+    driver.findElement({css: "tr[data-id='11']"}).getText()
+    .then(function(food){
+      assert.include(food, "Pizza")
+      assert.include(food, 350)
     })
   })
 })
