@@ -130,14 +130,14 @@ test.describe('visit foods.html', function () {
     .then(function(inputField){
       assert.equals(inputField, "")
     })
-  })
-    driver.findElement({css: "div[class='food-validation-error']"})
+
+    driver.findElement({css: "div[class='error']"})
     .getText()
     .then(function(inputField){
       assert.equals(inputField, "")
     })
-  })
-    driver.findElement({css: "div[class='calories-validation-error']"})
+
+    driver.findElement({css: "div[class='error']"})
     .getText()
     .then(function(inputField){
       assert.equals(inputField, "")
