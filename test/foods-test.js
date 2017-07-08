@@ -37,7 +37,7 @@ test.describe('visit foods.html', function () {
     driver.findElement({css: "input[name='add-food-button']"})
       .click()
 
-    driver.wait(until.elementLocated({css: "tr[data-id='10']"}))
+    driver.wait(until.elementLocated({css: "tr[data-id='food-10']"}))
     driver.findElements({css: "#foods-table .food"})
     .then(function(foods){
       assert.lengthOf(foods, 10)
@@ -61,6 +61,22 @@ test.describe('visit foods.html', function () {
       assert.include(food, "Pizza")
       assert.include(food, 350)
     })
+    driver.findElements({css: "#foods-table .food"})
+    .then(function(foods){
+      assert.lengthOf(foods, 11)
+    })
+  })
+
+  test.it('should be able to delete a food from the foods list', function () {
+    driver.get(`${rootPath}/foods.html`)
+
+    driver.findElement({css: ".food[data-id='food-6'] .delete-button"})
+      .click()
+
+    driver.findElements({css: ".delete-button"})
+      .then(function(foods){
+        assert.lengthOf(foods, 8)
+      })
   })
 
   test.it('should validate food field is filled in', function (){
