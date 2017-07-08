@@ -12,14 +12,6 @@ test.describe('visit foods.html', function () {
     driver = new webdriver.Builder()
       .forBrowser("chrome")
       .build()
-
-    driver.get(`${rootPath}/foods.html`)
-    driver.findElement({css: "input[name='food-name']"})
-      .sendKeys("Scramble")
-    driver.findElement({css: "input[name='food-calories']"})
-      .sendKeys("300")
-    driver.findElement({css: "input[name='add-food-button']"})
-      .click()
   })
 
   test.afterEach(function() {
