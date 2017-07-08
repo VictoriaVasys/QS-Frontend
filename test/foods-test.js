@@ -77,4 +77,32 @@ test.describe('visit foods.html', function () {
         assert.lengthOf(foods, 8)
       })
   })
+
+  test.it('should validate food field is filled in', function (){
+
+    driver.get(`${rootPath}/foods.html`)
+    driver.findElement({css: "input[name='food-calories']"})
+      .sendKeys("350")
+    driver.findElement({css: "input[name='add-food-button']"})
+      .click()
+
+    driver.findElement({css: "div[class='name-validation-error']"}).getText()
+    .then(function(error){
+      assert.equal(error, "Please enter a food name")
+    })
+  })
+
+  test.it('should validate food field is filled in', function (){
+
+    driver.get(`${rootPath}/foods.html`)
+    driver.findElement({css: "input[name='food-name']"})
+      .sendKeys("Pasta")
+    driver.findElement({css: "input[name='add-food-button']"})
+      .click()
+
+    driver.findElement({css: "div[class='calories-validation-error']"}).getText()
+    .then(function(error){
+      assert.equal(error, "Please enter a calorie amount")
+    })
+  })
 })
