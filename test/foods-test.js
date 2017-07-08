@@ -7,21 +7,12 @@ const host      = require('../lib/config').host
 
 test.describe('visit foods.html', function () {
   let driver
-  this.timeout(10000000)
+  this.timeout(10000)
 
   test.beforeEach(function(){
     driver = new webdriver.Builder()
       .forBrowser("chrome")
       .build()
-
-    console.log(host)
-    driver.post(`${host}/api/v1/foods`,
-      { name: 'pie', calories: 250 } )
-    // const testFood = new Food({name: 'pie', calories: 150})
-    // testFood.create()
-    // .then(function(fullFood){
-    //   $('#foods-table').append(fullFood.toHTML())
-    // })
   })
 
   test.afterEach(function() {

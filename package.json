@@ -36,7 +36,8 @@
     "style-loader": "^0.13.1",
     "webdriverjs": "^1.7.5",
     "webpack": "^1.14.0",
-    "webpack-dev-server": "^1.16.2"
+    "webpack-dev-server": "^1.16.2",
+    "xmlhttprequest": "^1.8.0"
   },
   "dependencies": {
     "cors": "^2.8.3"
