@@ -28,11 +28,8 @@ test.describe('visit foods.html', function () {
   })
 
   test.it('should be able to fill in form with name and calories', function () {
-    //   When I visit foods.html,
-    driver.get(`${rootPath}/foods.html`)
 
-    // I can enter a name and calorie amount,
-    // and create a new food by clicking "Add Food"
+    driver.get(`${rootPath}/foods.html`)
     driver.findElement({css: "input[name='food-name']"})
       .sendKeys("Scramble")
     driver.findElement({css: "input[name='food-calories']"})
