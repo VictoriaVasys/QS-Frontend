@@ -37,10 +37,10 @@ test.describe('visit foods.html', function () {
     driver.findElement({css: "input[name='add-food-button']"})
       .click()
 
-    driver.wait(until.elementLocated({css: "tr[data-id='9']"}))
+    driver.wait(until.elementLocated({css: "tr[data-id='10']"}))
     driver.findElements({css: "#foods-table .food"})
     .then(function(foods){
-      assert.lengthOf(foods, 9)
+      assert.lengthOf(foods, 10)
     })
   })
 
@@ -54,11 +54,25 @@ test.describe('visit foods.html', function () {
     driver.findElement({css: "input[name='add-food-button']"})
       .click()
 
-    driver.wait(until.elementLocated({css: "tr[data-id='10']"}))
+    driver.wait(until.elementLocated({css: "tr[data-id='11']"}))
     driver.findElement({css: "tr[data-id='11']"}).getText()
     .then(function(food){
       assert.include(food, "Pizza")
       assert.include(food, 350)
+    })
+  })
+
+  test.it('should validate food field is filled in', function (){
+
+    driver.get(`${rootPath}/foods.html`)
+    driver.findElement({css: "input[name='food-calories']"})
+      .sendKeys("350")
+    driver.findElement({css: "input[name='add-food-button']"})
+      .click()
+
+    driver.findElement({css: "div[class='name-validation-error']"}).getText()
+    .then(function(error){
+      assert.equal(error, "Please enter a food name")
     })
   })
 })
