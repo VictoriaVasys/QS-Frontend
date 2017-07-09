@@ -21,6 +21,7 @@ test.describe('visit foods.html', function () {
   test.it('should display table of all my foods', function () {
     driver.get(`${rootPath}/foods.html`)
     driver.wait(until.elementLocated({css: "#foods-table .food"}))
+    
     driver.findElements({css: "#foods-table .food"})
     .then(function(foods){
       assert.lengthOf(foods, 9)
@@ -28,8 +29,8 @@ test.describe('visit foods.html', function () {
   })
   
   test.it('should be able to fill in form with name and calories', function () {
-  
     driver.get(`${rootPath}/foods.html`)
+    
     driver.findElement({css: "input[name='food-name']"})
       .sendKeys("Scramble")
     driver.findElement({css: "input[name='food-calories']"})
@@ -45,7 +46,6 @@ test.describe('visit foods.html', function () {
   })
   
   test.it('should create a new food and prepend it to the table', function () {
-  
     driver.get(`${rootPath}/foods.html`)
     driver.findElement({css: "input[name='food-name']"})
       .sendKeys("Pizza")
@@ -79,8 +79,8 @@ test.describe('visit foods.html', function () {
   })
 
   test.it('should validate food field is filled in', function (){
-
     driver.get(`${rootPath}/foods.html`)
+    
     driver.findElement({css: "input[name='food-calories']"})
       .sendKeys("350")
     driver.findElement({css: "input[name='add-food-button']"})
@@ -93,16 +93,44 @@ test.describe('visit foods.html', function () {
   })
 
   test.it('should validate food field is filled in', function (){
-
     driver.get(`${rootPath}/foods.html`)
+    
     driver.findElement({css: "input[name='food-name']"})
       .sendKeys("Pasta")
     driver.findElement({css: "input[name='add-food-button']"})
       .click()
 
     driver.findElement({css: "div[class='calories-validation-error']"}).getText()
-    .then(function(error){
-      assert.equal(error, "Please enter a calorie amount")
-    })
+      .then(function(error){
+        assert.equal(error, "Please enter a calorie amount")
+      })
   })
+  
+  test.it.skip('food name & calories should be editable', function (){
+    driver.get(`${rootPath}/foods.html`)
+
+    expect(driver.findElements({css: ".food h4[contenteditable]"}).to.have.value("true")) // not sure how to make this targeted at foods & calories within same h4 tag as c.e.
+  })
+  
+  test.it('food name should change when clicked on & different value typed', function (){
+    driver.get(`${rootPath}/foods.html`)
+    
+    driver.findElement({css: ".food[data-id='food-6'] .name"})
+      .click()
+      .sendKeys("Quiche")
+    driver.findElement({css: ".food[data-id='food-3']"})
+      .click()
+    
+    driver.findElement({css: ".food[data-id='food-6'] .name"}).getText()
+      .then(function(name){
+        assert.equal(name, "Quiche")
+      })
+  })
+    
 })
+
+
+
+
+
+
