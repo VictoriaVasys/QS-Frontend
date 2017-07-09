@@ -54,12 +54,12 @@ test.describe('visit foods.html', function () {
     driver.findElement({css: "input[name='add-food-button']"})
       .click()
 
-    driver.wait(until.elementLocated({css: "tr[data-id='11']"}))
+    driver.wait(until.elementLocated({css: "tr[data-id='10']"}))
     driver.findElement({css: "tr[data-id='11']"})
     .getText()
     .then(function(food){
       assert.include(food, "Pizza")
-      assert.include(food, 350)
+      assert.include(food, "350")
     })
     driver.findElements({css: "#foods-table .food"})
     .then(function(foods){
@@ -113,11 +113,11 @@ test.describe('visit foods.html', function () {
 
     driver.get(`${rootPath}/foods.html`)
     driver.findElement({css: "input[name='food-name']"})
-      .sendKeys("Squash")
+    .sendKeys("Squash")
     driver.findElement({css: "input[name='food-calories']"})
-      .sendKeys("300")
+    .sendKeys("350")
     driver.findElement({css: "input[name='add-food-button']"})
-      .click()
+    .click()
 
     driver.wait(until.elementLocated({css: "tr[data-id='11']"}))
     driver.findElement({css: "input[name='food-name']"})
@@ -143,4 +143,26 @@ test.describe('visit foods.html', function () {
       assert.equals(inputField, "")
     })
   })
+
+  test.it('should persist foods in the same order when the page is refreshed', function (){
+    driver.get(`${rootPath}/foods.html`)
+    driver.findElement({css: "tr[class='food']"})
+    .getText()
+    .then(function(firstFood){
+      console.log(firstFood)
+      assert.include(firstFood, 'Squash')
+      assert.include(firstFood, '350')
+    })
+
+    driver.get(`${rootPath}/foods.html`)
+    driver.findElement({css: "tr[class='food']"})
+    .getText()
+    .then(function(firstFood){
+      assert.include(firstFood, 'Squash')
+      assert.include(firstFood, '350')
+    })
+
+
+  })
+
 })
