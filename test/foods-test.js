@@ -21,7 +21,7 @@ test.describe('visit foods.html', function () {
   test.it('should display table of all my foods', function () {
     driver.get(`${rootPath}/foods.html`)
     driver.wait(until.elementLocated({css: "#foods-table .food"}))
-    driver.findElements({css: "#foods-table .food"})
+    driver.findElements({css: ".food"})
     .then(function(foods){
       assert.lengthOf(foods, 9)
     })
@@ -33,12 +33,12 @@ test.describe('visit foods.html', function () {
     driver.findElement({css: "input[name='food-name']"})
       .sendKeys("Scramble")
     driver.findElement({css: "input[name='food-calories']"})
-      .sendKeys("300")
+      .sendKeys(300)
     driver.findElement({css: "input[name='add-food-button']"})
       .click()
 
     driver.wait(until.elementLocated({css: "tr[data-id='food-10']"}))
-    driver.findElements({css: "#foods-table .food"})
+    driver.findElements({css: ".food"})
     .then(function(foods){
       assert.lengthOf(foods, 10)
     })
@@ -50,17 +50,18 @@ test.describe('visit foods.html', function () {
     driver.findElement({css: "input[name='food-name']"})
       .sendKeys("Pizza")
     driver.findElement({css: "input[name='food-calories']"})
-      .sendKeys("350")
+      .sendKeys(350)
     driver.findElement({css: "input[name='add-food-button']"})
       .click()
 
-    driver.wait(until.elementLocated({css: "tr[data-id='10']"}))
-    driver.findElement({css: "tr[data-id='11']"})
-    .getText()
+    driver.wait(until.elementLocated({css: "tr[data-id='food-11']"}))
+
+    driver.findElement({css: "tr[data-id='11']"}).getText()
     .then(function(food){
       assert.include(food, "Pizza")
-      assert.include(food, "350")
+      assert.include(food, 350)
     })
+
     driver.findElements({css: "#foods-table .food"})
     .then(function(foods){
       assert.lengthOf(foods, 11)
@@ -83,7 +84,7 @@ test.describe('visit foods.html', function () {
 
     driver.get(`${rootPath}/foods.html`)
     driver.findElement({css: "input[name='food-calories']"})
-      .sendKeys("350")
+      .sendKeys(350)
     driver.findElement({css: "input[name='add-food-button']"})
       .click()
 
@@ -115,7 +116,7 @@ test.describe('visit foods.html', function () {
     driver.findElement({css: "input[name='food-name']"})
     .sendKeys("Squash")
     driver.findElement({css: "input[name='food-calories']"})
-    .sendKeys("350")
+    .sendKeys(350)
     driver.findElement({css: "input[name='add-food-button']"})
     .click()
 
@@ -149,17 +150,16 @@ test.describe('visit foods.html', function () {
     driver.findElement({css: "tr[class='food']"})
     .getText()
     .then(function(firstFood){
-      console.log(firstFood)
-      assert.include(firstFood, 'Squash')
-      assert.include(firstFood, '350')
+      assert.include(firstFood, 'Pizza')
+      assert.include(firstFood, 350)
     })
 
     driver.get(`${rootPath}/foods.html`)
     driver.findElement({css: "tr[class='food']"})
     .getText()
     .then(function(firstFood){
-      assert.include(firstFood, 'Squash')
-      assert.include(firstFood, '350')
+      assert.include(firstFood, 'Pizza')
+      assert.include(firstFood, 350)
     })
 
 
