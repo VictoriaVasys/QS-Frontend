@@ -18,7 +18,7 @@ test.describe('visit foods.html', function () {
     driver.quit()
   })
 
-  test.it.skip('should display table of all my foods', function () {
+  test.it('should display table of all my foods', function () {
     driver.get(`${rootPath}/foods.html`)
     driver.wait(until.elementLocated({css: "#foods-table .food"}))
     driver.findElements({css: ".food"})
@@ -81,7 +81,7 @@ test.describe('visit foods.html', function () {
       })
   })
 
-  test.it.skip('should validate food field is filled in', function (){
+  test.it('should validate food field is filled in', function (){
     driver.get(`${rootPath}/foods.html`)
     
     driver.findElement({css: "input[name='food-calories']"})
@@ -96,7 +96,7 @@ test.describe('visit foods.html', function () {
     })
   })
 
-  test.it.skip('should validate food field is filled in', function (){
+  test.it('should validate food field is filled in', function (){
     driver.get(`${rootPath}/foods.html`)
     
     driver.findElement({css: "input[name='food-name']"})
@@ -112,7 +112,7 @@ test.describe('visit foods.html', function () {
       })
   })
   
-  test.it.skip('food name & calories should be editable', function (){
+  test.it('food name & calories should be editable', function (){
     driver.get(`${rootPath}/foods.html`)
 
     expect(driver.findElements({css: ".food h4[contenteditable]"}).to.have.value("true")) // not sure how to make this targeted at foods & calories within same h4 tag as c.e.
