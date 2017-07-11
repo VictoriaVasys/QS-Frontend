@@ -29,4 +29,15 @@ test.describe('visit index.html', function () {
     })
   })
   
+  test.it('should display foods-table', function () {
+    driver.get(`${rootPath}/index.html`)
+    
+    driver.wait(until.elementsLocated({css: "#diary-foods-table"}))
+    
+    driver.findElements({css: "#diary-foods-table .food"})
+    .then(function(foods){
+      assert.lengthOf(foods, 11)
+    })
+  })
+  
 })
