@@ -15,6 +15,10 @@ table#foods-table tbody tr th {
   text-align: left;
 }
 
+tr .delete-button input[type="image"] {
+  height: 20px;
+}
+
 table#foods-table tbody tr .delete-button input[type="image"] {
   height: 20px;
 }
@@ -29,4 +33,21 @@ div.meal {
   border-width: 2px;
   padding: 10px;
   margin: 10%;
+}
+
+table.meal-table {
+  border-color: black;
+  border-width: 2px;
+  border-style: solid;
+  padding: 10px;
+}
+
+table.meal-tabletbody td {
+  padding-right: 20px;
+}
+
+table.meal-tabletbody tr th {
+  font-weight: bold;
+  font-size: 20px;
+  text-align: left;
 }

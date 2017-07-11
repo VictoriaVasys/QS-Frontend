@@ -4,7 +4,7 @@ const until     = webdriver.until;
 const test      = require('selenium-webdriver/testing');
 const rootPath  = "http://localhost:8080"
 
-test.describe.skip('visit foods.html', function () {
+test.describe('visit foods.html', function () {
   let driver
   this.timeout(10000)
 
