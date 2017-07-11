@@ -1,14 +1,17 @@
 const assert = require("chai").assert
-const app = require("../server")
 const request = require("request")
-const Food = require("../lib/models/food")
 const environment = process.env.NODE_ENV || 'development'
-const configuration = require('../knexfile')[environment]
-const database = require('knex')(configuration)
-const Meal = require('../lib/js/')
+const Meal = require('../lib/js/meal')
+
 describe('Meal', function() {
-  it('should', function(done) {
-    ''
+  it('#getAllMeals', function(done) {
+    Meal.getMeals(1)
+    .then(function(meals) {
+      var pry = require('pryjs'); eval(pry.it);
+      meals.forEach(function(meal) {
+        assert.lengthOf(meal, 3)
+      })
+    })
     done()
   })
 })
