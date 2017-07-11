@@ -19,4 +19,14 @@ table#foods-table tbody tr .delete-button input[type="image"] {
   height: 20px;
 }
 
+h4.center {
+  text-align: center;
+  color: blue;
+}
 
+div.meal {
+  border-style: solid;
+  border-width: 2px;
+  padding: 10px;
+  margin: 10%;
+}
