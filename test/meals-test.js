@@ -18,11 +18,15 @@ test.describe('visit index.html', function () {
     driver.quit()
   })
 
-  test.it('should display table for Breakfast', function () {
+  test.it('should display tables for meals', function () {
     driver.get(`${rootPath}/index.html`)
-    driver.wait(until.elementLocated({css: "#meals-table .meal"}))
+    
+    driver.wait(until.elementsLocated({css: ".meal"}))
+    
     driver.findElements({css: ".meal"})
     .then(function(meals){
-      assert.lengthOf(meals, 1)
+      assert.lengthOf(meals, 4)
     })
   })
+  
+})

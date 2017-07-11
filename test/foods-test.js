@@ -130,11 +130,6 @@ test.describe('visit foods.html', function () {
       assert.equal(inputField, "")
     })
 
-    // driver.findElement({css: "div[class='error']"})
-    // .getText()
-    // .then(function(inputField){
-    //   assert.equal(inputField, "")
-    // })
     driver.findElement({css: "div.error.calories-validation-error"})
     .getText()
     .then(function(inputField){
@@ -157,6 +152,8 @@ test.describe('visit foods.html', function () {
     })
 
     driver.get(`${rootPath}/foods.html`)
+    driver.wait(until.elementsLocated({css: "#foods-table .food"}))
+    
     driver.findElement({css: ".food"})
     .getText()
     .then(function(firstFood){
@@ -181,25 +178,25 @@ test.describe('visit foods.html', function () {
   
   test.it('should persist food changes when the page is refreshed', function (){
     driver.get(`${rootPath}/foods.html`)
-    driver.findElement({css: ".food[id='food-4'] .name"})
-      .sendKeys("Crunchy ")
     driver.findElement({css: ".food[id='food-10'] .name"})
+      .sendKeys("Crunchy ")
+    driver.findElement({css: ".food[id='food-4'] .name"})
       .click()
     
     
     driver.get(`${rootPath}/foods.html`)
     driver.wait(until.elementsLocated({css: "#foods-table .food"}))
     
-    driver.findElement({css: ".food[id='food-4'] .name"}).getText()
+    driver.findElement({css: ".food[id='food-10'] .name"}).getText()
       .then(function(name){
-        assert.equal(name, "Crunchy Deep Dish Pizza")
+        assert.equal(name, "Crunchy Scramble")
       })
   })
   
   test.it('should be able to delete a food from the foods list', function () {
     driver.get(`${rootPath}/foods.html`)
     
-    driver.findElement({css: ".food[id='food-6'] .delete-button input"})
+    driver.findElement({css: ".food[id='food-12'] .delete-button input"})
     .click()
     
     driver.findElements({css: ".delete-button"})
