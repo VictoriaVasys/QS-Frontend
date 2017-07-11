@@ -1,21 +1,21 @@
-table#foods-table {
+table {
   border-color: black;
   border-width: 2px;
   border-style: solid;
   padding: 10px;
 }
 
-table#foods-table tbody td {
+table tbody td {
   padding-right: 20px;
 }
 
-table#foods-table tbody tr th {
+table tbody tr th {
   font-weight: bold;
   font-size: 20px;
   text-align: left;
 }
 
-table#foods-table tbody tr .delete-button input[type="image"] {
+table tbody tr .delete-button input[type="image"] {
   height: 20px;
 }
 
