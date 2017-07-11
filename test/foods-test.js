@@ -154,7 +154,7 @@ test.describe('visit foods.html', function () {
     driver.get(`${rootPath}/foods.html`)
     driver.wait(until.elementsLocated({css: "#foods-table .food"}))
 
-    driver.findElement({css: ".food"})
+    driver.findElement({css: "#foods-table .food"})
     .getText()
     .then(function(firstFood){
       assert.include(firstFood, 'Squash')

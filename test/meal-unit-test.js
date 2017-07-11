@@ -3,8 +3,8 @@ const Meal = require("../lib/js/meal")
 const pry = require('pryjs')
 //webpack-dev-server/test.html
 
-describe('Meal', function() {
-  // this.timeout(1000000)
+describe('#Meal.fromAPIToHTML', function() {
+  this.timeout(1000000)
   it('can turn an API response into HTML', function(done) {
     var APIResponse = new Promise(function(resolve, reject) {
     resolve({
@@ -27,6 +27,5 @@ describe('Meal', function() {
         }))
         done()
       })
-
   })
 })

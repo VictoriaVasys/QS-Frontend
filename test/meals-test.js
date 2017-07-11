@@ -63,7 +63,7 @@ test.describe('visit index.html', function () {
   })
 
   //need to add snacks to seed file in order to pass
-  test.it.skip('should display foods for snack', function () {
+  test.it('should display foods for snack', function () {
     driver.get(`${rootPath}/index.html`)
 
     driver.wait(until.elementsLocated({css: "#snack"}))
