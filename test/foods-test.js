@@ -206,6 +206,18 @@ test.describe('visit foods.html', function () {
       assert.lengthOf(foods, 11)
     })
   })
+  
+  test.it('should filter foods based on text input', function () {
+    driver.get(`${rootPath}/foods.html`)
+    
+    driver.findElement({css: ".filter-foods input[name='filter']"})
+      .sendKeys("ban")
+    
+    driver.findElements({css: "#foods-table .food"})
+    .then(function(foods){
+      assert.lengthOf(foods, 2)
+    })
+  })
 
 })
 
