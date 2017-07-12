@@ -105,4 +105,18 @@ test.describe('visit index.html', function () {
       assert.lengthOf(foods, 2)
     })
   })
+  
+  test.it('should be able to delete a food from a meal', function () {
+    driver.get(`${rootPath}/index.html`)
+
+    driver.findElement({css: ".food[id='food-5'] .delete-button input"})
+    .click()
+
+    driver.wait(until.elementsLocated({css: "#dinner"}))
+    
+    driver.findElements({css: ".meal-table .food"})
+    .then(function(foods){
+      assert.lengthOf(foods, 2)
+    })
+  })
 })
