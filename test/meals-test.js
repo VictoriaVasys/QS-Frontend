@@ -62,7 +62,6 @@ test.describe('visit index.html', function () {
     })
   })
 
-  //need to add snacks to seed file in order to pass
   test.it('should display foods for snack', function () {
     driver.get(`${rootPath}/index.html`)
 
@@ -74,4 +73,36 @@ test.describe('visit index.html', function () {
     })
   })
 
+  // Deleted foods will not be removed from meal tables in the diary.
+  test.it('deleted foods should persisit in the meals table', function () {
+    driver.get(`${rootPath}/index.html`)
+
+    driver.wait(until.elementsLocated({css: "#snack"}))
+
+    driver.findElements({css: "#snack .name"})
+    .then(function(foods){
+      assert.lengthOf(foods, 2)
+    })
+
+    driver.get(`${rootPath}/foods.html`)
+
+
+    driver.findElement({css: ".food[id='food-7'] .delete-button input"})
+    .click()
+
+    driver.wait(until.elementsLocated({css: "#foods-table .food"}))
+
+    .then(function(foods){
+      assert.lengthOf(foods, 8)
+    })
+
+    driver.get(`${rootPath}/index.html`)
+
+    driver.wait(until.elementsLocated({css: "#snack"}))
+
+    driver.findElements({css: "#snack .name"})
+    .then(function(foods){
+      assert.lengthOf(foods, 2)
+    })
+  })
 })

@@ -169,12 +169,8 @@ test.describe('visit foods.html', function () {
       .sendKeys("Quiche ")
     driver.findElement({css: ".food[id='food-5']"})
       .click()
-<<<<<<< HEAD
 
-=======
-      
     driver.wait(until.elementLocated({css: ".food[id=food-3]"}))
->>>>>>> master
     driver.findElement({css: ".food[id='food-3'] .name"}).getText()
       .then(function(name){
         assert.equal(name, "Quiche Orange")
@@ -203,12 +199,9 @@ test.describe('visit foods.html', function () {
 
     driver.findElement({css: ".food[id='food-12'] .delete-button input"})
     .click()
-<<<<<<< HEAD
 
-=======
-    
     driver.wait(until.elementsLocated({css: "#foods-table .food"}))
->>>>>>> master
+    
     driver.findElements({css: ".delete-button"})
     .then(function(foods){
       assert.lengthOf(foods, 11)
