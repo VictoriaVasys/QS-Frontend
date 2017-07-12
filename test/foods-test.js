@@ -26,10 +26,10 @@ test.describe('visit foods.html', function () {
       assert.lengthOf(foods, 9)
     })
   })
-  
+
   test.it('should be able to fill in form with name and calories', function () {
     driver.get(`${rootPath}/foods.html`)
-    
+
     driver.findElement({css: "input[name='food-name']"})
       .sendKeys("Scramble")
     driver.findElement({css: "input[name='food-calories']"})
@@ -99,20 +99,20 @@ test.describe('visit foods.html', function () {
   })
 
   test.it('should clear form fields and error messages when food is created', function () {
-    
+
     driver.get(`${rootPath}/foods.html`)
     driver.findElement({css: "input[name='food-name']"})
       .sendKeys("Pasta")
     driver.findElement({css: "input[name='add-food-button']"})
       .click()
-      
+
     driver.findElement({css: "input[name='food-name']"})
       .clear()
     driver.findElement({css: "input[name='food-calories']"})
       .sendKeys(350)
     driver.findElement({css: "input[name='add-food-button']"})
       .click()
-    
+
     driver.findElement({css: "input[name='food-name']"})
       .sendKeys("Squash")
     driver.findElement({css: "input[name='add-food-button']"})
@@ -153,53 +153,53 @@ test.describe('visit foods.html', function () {
 
     driver.get(`${rootPath}/foods.html`)
     driver.wait(until.elementsLocated({css: "#foods-table .food"}))
-    
-    driver.findElement({css: ".food"})
+
+    driver.findElement({css: "#foods-table .food"})
     .getText()
     .then(function(firstFood){
       assert.include(firstFood, 'Squash')
       assert.include(firstFood, 350)
     })
   })
-  
+
   test.it('food name should change when clicked on & different value typed', function (){
     driver.get(`${rootPath}/foods.html`)
-    
+
     driver.findElement({css: ".food[id='food-3'] .name"})
       .sendKeys("Quiche ")
     driver.findElement({css: ".food[id='food-5']"})
       .click()
-      
+
     driver.wait(until.elementLocated({css: ".food[id=food-3]"}))
     driver.findElement({css: ".food[id='food-3'] .name"}).getText()
       .then(function(name){
         assert.equal(name, "Quiche Orange")
       })
   })
-  
+
   test.it('should persist food changes when the page is refreshed', function (){
     driver.get(`${rootPath}/foods.html`)
     driver.findElement({css: ".food[id='food-10'] .name"})
       .sendKeys("Crunchy ")
     driver.findElement({css: ".food[id='food-4'] .name"})
       .click()
-    
-    
+
+
     driver.get(`${rootPath}/foods.html`)
     driver.wait(until.elementsLocated({css: "#foods-table .food"}))
-    
+
     driver.findElement({css: ".food[id='food-10'] .name"}).getText()
       .then(function(name){
         assert.equal(name, "Crunchy Scramble")
       })
   })
-  
+
   test.it('should be able to delete a food from the foods list', function () {
     driver.get(`${rootPath}/foods.html`)
-    
+
     driver.findElement({css: ".food[id='food-12'] .delete-button input"})
     .click()
-    
+
     driver.wait(until.elementsLocated({css: "#foods-table .food"}))
     driver.findElements({css: ".delete-button"})
     .then(function(foods){
@@ -208,6 +208,3 @@ test.describe('visit foods.html', function () {
   })
 
 })
-
-
-
