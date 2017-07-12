@@ -93,7 +93,7 @@ test.describe('visit index.html', function () {
     driver.wait(until.elementsLocated({css: "#foods-table .food"}))
 
     .then(function(foods){
-      assert.lengthOf(foods, 11)
+      assert.lengthOf(foods, 10)
     })
 
     driver.get(`${rootPath}/index.html`)
@@ -105,18 +105,100 @@ test.describe('visit index.html', function () {
       assert.lengthOf(foods, 2)
     })
   })
-  
-  test.it('should be able to delete a food from a meal', function () {
+
+  test.it('should show total calories for breakfast', function () {
     driver.get(`${rootPath}/index.html`)
 
-    driver.findElement({css: ".food[id='food-5'] .delete-button input"})
-    .click()
+    driver.wait(until.elementsLocated({css: "#breakfast"}))
+
+    driver.findElement({css: '#breakfast-calories'})
+    .getText()
+    .then(function(total){
+      assert.include(total, 400)
+    })
+  })
+
+  test.it('should show total calories for lunch', function () {
+    driver.get(`${rootPath}/index.html`)
+
+    driver.wait(until.elementsLocated({css: "#lunch"}))
+
+    driver.findElement({css: '#lunch-calories'})
+    .getText()
+    .then(function(total){
+      assert.include(total, 600)
+    })
+  })
+
+  test.it('should show total calories for dinner', function () {
+    driver.get(`${rootPath}/index.html`)
 
     driver.wait(until.elementsLocated({css: "#dinner"}))
-    
-    driver.findElements({css: ".meal-table .food"})
-    .then(function(foods){
-      assert.lengthOf(foods, 2)
+
+    driver.findElement({css: '#dinner-calories'})
+    .getText()
+    .then(function(total){
+      assert.include(total, 800)
+    })
+  })
+
+  test.it('should show total calories for snack', function () {
+    driver.get(`${rootPath}/index.html`)
+
+    driver.wait(until.elementsLocated({css: "#snack"}))
+
+    driver.findElement({css: '#snack-calories'})
+    .getText()
+    .then(function(total){
+      assert.include(total, 200)
+    })
+  })
+
+  test.it('should show remaining calories for breakfast', function () {
+    driver.get(`${rootPath}/index.html`)
+
+    driver.wait(until.elementsLocated({css: "#breakfast"}))
+
+    driver.findElement({css: '#remaining-breakfast-calories'})
+    .getText()
+    .then(function(remaining){
+      assert.include(remaining, 332)
+    })
+  })
+
+  test.it('should show remaining calories for lunch', function () {
+    driver.get(`${rootPath}/index.html`)
+
+    driver.wait(until.elementsLocated({css: "#lunch"}))
+
+    driver.findElement({css: '#remaining-lunch-calories'})
+    .getText()
+    .then(function(remaining){
+      assert.include(remaining, -630)
+    })
+  })
+
+  test.it('should show remaining calories for dinner', function () {
+    driver.get(`${rootPath}/index.html`)
+
+    driver.wait(until.elementsLocated({css: "#dinner"}))
+
+    driver.findElement({css: '#remaining-dinner-calories'})
+    .getText()
+    .then(function(remaining){
+      assert.include(remaining, 25)
+    })
+  })
+
+  test.it('should show remaining calories for snack', function () {
+    driver.get(`${rootPath}/index.html`)
+
+    driver.wait(until.elementsLocated({css: "#snack"}))
+
+    driver.findElement({css: '#remaining-snack-calories'})
+    .getText()
+    .then(function(remaining){
+      assert.include(remaining, -160)
     })
   })
 })
