@@ -201,11 +201,10 @@ test.describe('visit foods.html', function () {
     .click()
 
     driver.wait(until.elementsLocated({css: "#foods-table .food"}))
-    
+
     driver.findElements({css: ".delete-button"})
     .then(function(foods){
       assert.lengthOf(foods, 11)
     })
   })
-
 })
