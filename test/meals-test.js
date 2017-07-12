@@ -20,24 +20,89 @@ test.describe('visit index.html', function () {
 
   test.it('should display tables for meals', function () {
     driver.get(`${rootPath}/index.html`)
-    
+
     driver.wait(until.elementsLocated({css: ".meal"}))
-    
+
     driver.findElements({css: ".meal"})
     .then(function(meals){
       assert.lengthOf(meals, 4)
     })
   })
-  
-  test.it('should display foods-table', function () {
+
+  test.it('should display foods for breakfast', function () {
     driver.get(`${rootPath}/index.html`)
-    
-    driver.wait(until.elementsLocated({css: "#diary-foods-table"}))
-    
-    driver.findElements({css: "#diary-foods-table .food"})
+
+    driver.wait(until.elementsLocated({css: "#breakfast"}))
+
+    driver.findElements({css: "#breakfast .name"})
     .then(function(foods){
-      assert.lengthOf(foods, 11)
+      assert.lengthOf(foods, 2)
     })
   })
-  
+
+  test.it('should display foods for lunch', function () {
+    driver.get(`${rootPath}/index.html`)
+
+    driver.wait(until.elementsLocated({css: "#lunch"}))
+
+    driver.findElements({css: "#lunch .name"})
+    .then(function(foods){
+      assert.lengthOf(foods, 2)
+    })
+  })
+
+  test.it('should display foods for dinner', function () {
+    driver.get(`${rootPath}/index.html`)
+
+    driver.wait(until.elementsLocated({css: "#dinner"}))
+
+    driver.findElements({css: "#dinner .name"})
+    .then(function(foods){
+      assert.lengthOf(foods, 3)
+    })
+  })
+
+  test.it('should display foods for snack', function () {
+    driver.get(`${rootPath}/index.html`)
+
+    driver.wait(until.elementsLocated({css: "#snack"}))
+
+    driver.findElements({css: "#snack .name"})
+    .then(function(foods){
+      assert.lengthOf(foods, 2)
+    })
+  })
+
+  // Deleted foods will not be removed from meal tables in the diary.
+  test.it('deleted foods should persisit in the meals table', function () {
+    driver.get(`${rootPath}/index.html`)
+
+    driver.wait(until.elementsLocated({css: "#snack"}))
+
+    driver.findElements({css: "#snack .name"})
+    .then(function(foods){
+      assert.lengthOf(foods, 2)
+    })
+
+    driver.get(`${rootPath}/foods.html`)
+
+
+    driver.findElement({css: ".food[id='food-7'] .delete-button input"})
+    .click()
+
+    driver.wait(until.elementsLocated({css: "#foods-table .food"}))
+
+    .then(function(foods){
+      assert.lengthOf(foods, 8)
+    })
+
+    driver.get(`${rootPath}/index.html`)
+
+    driver.wait(until.elementsLocated({css: "#snack"}))
+
+    driver.findElements({css: "#snack .name"})
+    .then(function(foods){
+      assert.lengthOf(foods, 2)
+    })
+  })
 })
