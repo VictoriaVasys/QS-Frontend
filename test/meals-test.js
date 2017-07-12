@@ -74,7 +74,7 @@ test.describe('visit index.html', function () {
   })
 
   // Deleted foods will not be removed from meal tables in the diary.
-  test.it('deleted foods should persisit in the meals table', function () {
+  test.it('deleted foods should persist in the meals table', function () {
     driver.get(`${rootPath}/index.html`)
 
     driver.wait(until.elementsLocated({css: "#snack"}))
