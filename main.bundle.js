@@ -10484,9 +10484,9 @@
 	};
 
 	Food.updateAttr = function (id, objToUpdate) {
-	  return $.ajax({
+	  $.ajax({
 	    method: 'PUT',
-	    url: 'http://localhost:3000/api/v1/foods/' + id,
+	    url: `${host}/api/v1/foods/` + id,
 	    data: objToUpdate
 	  });
 	};
@@ -10507,7 +10507,7 @@
 /***/ (function(module, exports) {
 
 	module.exports = {
-	  host: "http://localhost:3000"
+	  host: "https://ms-vv-quantified-self.herokuapp.com"
 	};
 
 /***/ }),
@@ -10645,12 +10645,28 @@
 	  $('#diary-foods-table input:checked').prop('checked', false);
 	}
 
+	function totalCaloriesConsumed() {
+	  const goal = 2000;
+	  const allCalories = $('.meal-table .calories');
+	  let total = 0;
+	  allCalories.each(function (i) {
+	    const calories = this.innerHTML;
+	    return total += parseInt(calories);
+	  });
+	  $('#consumed').empty().append(`Calories Consumed: ${total}`);
+	  if (goal - total >= 0) {
+	    $('#remaining').empty().append(`Remaining Calories: ${goal - total}`).css('color', 'green');
+	  } else {
+	    $('#remaining').empty().append(`Remaining Calories: ${goal - total}`).css('color', 'red');
+	  }
+	}
+
 	function createMealTable() {
 	  Object.keys(mealCalories).forEach(function (meal) {
 	    Meal.toHTML(meals[meal]).then(function (foods) {
 	      $(`#${meal}`).append(foods);
 	    }).then(function () {
-
+	      totalCaloriesConsumed();
 	      Meal.totalCalories(meals[meal]).then(function (calories) {
 	        $(`td[id="${meal}-calories"]`).append(calories);
 	        let remainingCals = calories;
@@ -10672,7 +10688,6 @@
 	  Food.allFoodsToHTML("checkBox").then(function (foodsHTML) {
 	    $('#diary-foods-table').append(foodsHTML);
 	  });
-
 	  $('.meal-table').on('click', function (event) {
 	    event.preventDefault();
 	    if ($(event.target.parentElement).hasClass("delete-button")) {
@@ -10686,12 +10701,6 @@
 	  });
 
 	  createMealTable();
-
-	  // $('button#add-food-to-index-button').on('click', function(event){
-	  //   event.preventDefault()
-	  //   
-	  //   <link rel="/foods.html">
-	  // })
 
 	  $('button#add-food-to-meal-button').on('click', function (event) {
 	    event.preventDefault();
