@@ -7,13 +7,26 @@
 
 </head>
 <body>
-  <h3>Foods</h3>
+  <h3>Add Foods to a Meal</h3>
+  <h4>Choose a meal:  
+    <select id="meal-dropdown">
+      <option value="breakfast">Breakfast</option>
+      <option value="lunch">Lunch</option>
+      <option value="dinner">Dinner</option>
+      <option value="snack">Snack</option>
+    </select>
+  </h4>
+  <h4>Select Foods:</h4>
   <table id='diary-foods-table'>
     <tr>
       <th>Name</th>
       <th>Calories</th>
     </tr>
   </table>
+  <br>
+  <button type="button" id="add-food-to-meal-button">Add your foods to a meal!</button>
+  
+  <h3>Meals</h3>
   <div class="container">
     <div class="meal">
 
