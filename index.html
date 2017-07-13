@@ -7,13 +7,18 @@
 
 </head>
 <body>
-  <h2>Manage your Foods</h2>
+  <h1>Your Diary</h1>
+  <br>
+  <br>
+  <div class="wrapper">
+  <div class="one">
 
-  <h3>Add Foods to a Meal</h3>
+  <h2>Add Foods to a Meal</h2>
   <form action="https://victoriavasys.github.io/QS-Frontend/foods.html">
-    <input type="submit" value="Add a food">
+    <input type="submit" class="button" value="Don't see what you want? Add a food!">
   </form>
-  <h4>Filter Foods By Name: <input type="text" name="food-filter" placeholder="pIZzA"></h4>
+  <br>
+  <br>
   <h4>Choose a meal:
     <select id="meal-dropdown">
       <option value="breakfast">Breakfast</option>
@@ -22,20 +27,22 @@
       <option value="snack">Snack</option>
     </select>
   </h4>
-  <h4>Select Foods:</h4>
+  <br>
+  <h4>Filter Foods By Name: <input type="text" name="food-filter" placeholder="pIZzA"></h4>
   <table id='diary-foods-table'>
     <tr>
       <th>Name</th>
       <th>Calories</th>
     </tr>
   </table>
+  <button type="button" class="button" id="add-food-to-meal-button">Add your foods to a meal!</button>
+  </div>
+
+  <div class="two">
+  <h2>Meals</h2>
   <br>
-  <button type="button" id="add-food-to-meal-button">Add your foods to a meal!</button>
-
-  <h3>Meals</h3>
-  <div class="container">
+  <br>
     <div class="meal">
-
       <h4 class="center">Breakfast</h4>
       <table class="meal-table" id="breakfast">
         <thead class="table-header">
@@ -53,6 +60,8 @@
         </tfoot>
       </table>
     </div>
+    <br>
+    <br>
 
     <div class="meal">
       <h4 class="center">Lunch</h4>
@@ -66,12 +75,14 @@
         </thead>
         <tfoot>
           <tr>
-            <td id="lunch-calories">Total Calories:  </td><br>
-            <td id="remaining-lunch-calories">Remaining Calories:  </td>
+            <td id="lunch-calories">Total Calories: </td><br>
+            <td id="remaining-lunch-calories">Remaining Calories: </td>
           </tr>
         </tfoot>
       </table>
     </div>
+    <br>
+    <br>
 
     <div class="meal">
       <h4 class="center">Dinner</h4>
@@ -91,6 +102,8 @@
         </tfoot>
       </table>
     </div>
+    <br>
+    <br>
 
     <div class="meal">
       <h4 class="center">Snacks</h4>
@@ -110,8 +123,11 @@
         </tfoot>
       </table>
     </div>
+    <br>
+    <br>
     <div class="totals">
-      <h4 clss="center">Totals</h4>
+      <h4 class="center">TOTALS</h4>
+      <br>
       <table id="goal-table">
         <thead class="table-header">
           <tr>
@@ -122,6 +138,7 @@
         </thead>
       </table>
     </div>
+  </div>
   </div>
 
   <script src="main.bundle.js"></script>

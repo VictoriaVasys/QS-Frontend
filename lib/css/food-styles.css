@@ -1,18 +1,96 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+}
+
+body {
+  padding: 20px;
+  padding-bottom: 100px;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+h1 {
+  color: #02A5AA;
+}
+
+h2 {
+  text-align: center;
+}
+
+h4 {
+  font-weight: normal;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 30px;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+.one {
+  grid-row: 1/ 5;
+  grid-column: 1/3;
+}
+
+.two { 
+  grid-row: 1 / 5;
+  grid-column: 3 / 6;
+}
+
+.three { 
+  grid-row: 1 / 5;
+  grid-column: 2 / 5;
+}
+
+.button {
+  margin: 10px;
+  font-size: 14px;
+  color: white;
+  background-color: #02A5AA;
+  border-color: #019499;
+  border-radius: 3px;
+}
+
 table {
-  border-color: black;
+  border-color: #02A5AA;
   border-width: 2px;
   border-style: solid;
   padding: 10px;
-}
-
-table tbody td {
-  padding-right: 20px;
+  width: 100%;
 }
 
 table tbody tr th {
   font-weight: bold;
   font-size: 20px;
   text-align: left;
+}
+
+tr td:nth-child(1) {
+  text-align: left;
+}
+
+tr td:nth-child(2) {
+   text-align: center;
+}
+
+tr th:nth-child(2) {
+   text-align: center;
 }
 
 tr .delete-button input[type="image"] {
@@ -23,27 +101,14 @@ table#foods-table tbody tr .delete-button input[type="image"] {
   height: 20px;
 }
 
+tfoot tr td {
+  padding-top: 20px;
+}
+
 h4.center {
   text-align: center;
-  color: blue;
-}
-
-div.meal {
-  border-style: solid;
-  border-width: 2px;
-  padding: 10px;
-  margin: 10%;
-}
-
-table.meal-table {
-  border-color: black;
-  border-width: 2px;
-  border-style: solid;
-  padding: 10px;
-}
-
-table.meal-tabletbody td {
-  padding-right: 20px;
+  color: #02A5AA;
+  font-weight: bold;
 }
 
 table.meal-tabletbody tr th {
