@@ -8,7 +8,7 @@
 </head>
 <body>
   <h3>Add Foods to a Meal</h3>
-  <h4>Choose a meal:  
+  <h4>Choose a meal:
     <select id="meal-dropdown">
       <option value="breakfast">Breakfast</option>
       <option value="lunch">Lunch</option>
@@ -25,7 +25,7 @@
   </table>
   <br>
   <button type="button" id="add-food-to-meal-button">Add your foods to a meal!</button>
-  
+
   <h3>Meals</h3>
   <div class="container">
     <div class="meal">
@@ -102,6 +102,18 @@
             <td id="remaining-snack-calories">Remaining Calories:  </td>
           </tr>
         </tfoot>
+      </table>
+    </div>
+    <div class="totals">
+      <h4 clss="center">Totals</h4>
+      <table id="goal-table">
+        <thead class="table-header">
+          <tr>
+            <th>Goal Calories: 2000</th>
+            <th id="consumed">Calories Consumed: </th>
+            <th id="remaining">Remaining Calories: </th>
+          </tr>
+        </thead>
       </table>
     </div>
   </div>
