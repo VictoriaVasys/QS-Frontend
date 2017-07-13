@@ -10764,6 +10764,7 @@
 	  foodDom.searchFoods();
 
 	  createMealTable();
+	  foodDom.searchFoods();
 
 	  $('button#add-food-to-meal-button').on('click', function (event) {
 	    event.preventDefault();
