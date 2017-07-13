@@ -45,7 +45,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
-	__webpack_require__(6);
+	__webpack_require__(7);
 
 /***/ }),
 /* 1 */
@@ -10516,13 +10516,16 @@
 
 	const $ = __webpack_require__(2);
 	const host = __webpack_require__(4).host;
+	const Meal = __webpack_require__(6);
 
-	function destroy(id) {
+	function destroy(id, mealId, mealName) {
 	  $.ajax({
 	    method: 'DELETE',
 	    contentType: 'application/json; charset=utf-8',
 	    url: `${host}/api/v1/mealFoods/${id}`,
 	    dataType: 'json'
+	  }).then(function () {
+	    Meal.updateTable(mealId, mealName);
 	  });
 	}
 
@@ -10537,90 +10540,6 @@
 
 /***/ }),
 /* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	const $ = __webpack_require__(2);
-	const Food = __webpack_require__(3);
-	const Meal = __webpack_require__(7);
-	const MealFood = __webpack_require__(5);
-
-	let total = 0;
-	const meals = {
-	  breakfast: 1,
-	  lunch: 2,
-	  dinner: 3,
-	  snack: 4
-	};
-	const mealCalories = {
-	  "breakfast": 400,
-	  "lunch": 600,
-	  "dinner": 800,
-	  "snack": 200
-	};
-
-	function uncheckCheckboxes() {
-	  $('#diary-foods-table input:checked').prop('checked', false);
-	}
-
-	function createMealTable() {
-	  Object.keys(mealCalories).forEach(function (meal) {
-	    Meal.toHTML(meals[meal]).then(function (foods) {
-	      $(`#${meal}`).append(foods);
-	    });
-	    Meal.totalCalories(meals[meal]).then(function (calories) {
-	      $(`td[id="${meal}-calories"]`).append(calories);
-	      let remainingCals = calories;
-	      $(`#${meal} .calories`).each(function () {
-	        remainingCals -= parseInt(this.innerHTML);
-	      }).promise().done(function () {
-	        if (remainingCals >= 0) {
-	          $(`td[id="remaining-${meal}-calories"]`).append(remainingCals).css('color', 'green');
-	        } else {
-	          $(`td[id="remaining-${meal}-calories"]`).append(remainingCals).css('color', 'red');
-	        }
-	      });
-	    });
-	  });
-	}
-
-	$(function () {
-	  Food.allFoodsToHTML("checkBox").then(function (foodsHTML) {
-	    $('#diary-foods-table').append(foodsHTML);
-	  });
-
-	  $('.meal-table').on('click', function (event) {
-	    event.preventDefault();
-	    if ($(event.target.parentElement).hasClass("delete-button")) {
-	      const foodId = parseInt(event.target.id);
-	      $(event.target.parentElement.parentElement.parentElement).remove();
-	      const mealFoodId = parseInt(event.target.name);
-	      MealFood.destroy(mealFoodId);
-	    }
-	  });
-
-	  createMealTable();
-
-	  $('button#add-food-to-meal-button').on('click', function (event) {
-	    event.preventDefault();
-
-	    const mealName = $('#meal-dropdown option:selected')[0].value;
-	    const mealId = meals[mealName];
-
-	    const foods = $('#diary-foods-table input:checked');
-	    foods.each(function (i) {
-	      var foodId = this.id;
-	      MealFood.create(mealId, parseInt(foodId)).then(function () {
-	        if (i == foods.length - 1) {
-	          Meal.updateTable(mealId, mealName);
-	          uncheckCheckboxes();
-	        }
-	      });
-	    });
-	  });
-	});
-
-/***/ }),
-/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	const $ = __webpack_require__(2);
@@ -10671,24 +10590,127 @@
 	  $(`#${mealName}`).find("tr:gt(0)").remove();
 	  Meal.toHTML(mealId).then(function (foods) {
 	    $(`#${mealName}`).append(foods);
-	  });
-	  Meal.totalCalories(mealId).then(function (calories) {
-	    debugger;
-	    $(`td[id="${meal}-calories"]`).append(calories);
-	    let remainingCals = calories;
-	    $(`#${meal} .calories`).each(function () {
-	      remainingCals -= parseInt(this.innerHTML);
-	    }).promise().done(function () {
-	      if (remainingCals >= 0) {
-	        $(`td[id="remaining-${meal}-calories"]`).append(remainingCals).css('color', 'green');
-	      } else {
-	        $(`td[id="remaining-${meal}-calories"]`).append(remainingCals).css('color', 'red');
-	      }
+	  }).then(function () {
+	    $(`#${mealName}`).append(`
+	        <tfoot>
+	          <tr>
+	            <td id="${mealName}-calories">Total Calories:  </td><br>
+	            <td id="remaining-${mealName}-calories">Remaining Calories:  </td>
+	          </tr>
+	        </tfoot>
+	        `);
+	  }).then(function () {
+	    Meal.totalCalories(mealId).then(function (calories) {
+	      $(`td[id="${mealName}-calories"]`).append(calories);
+	      let remainingCals = calories;
+	      $(`#${mealName} .calories`).each(function () {
+	        remainingCals -= parseInt(this.innerHTML);
+	      }).promise().done(function () {
+	        if (remainingCals >= 0) {
+	          $(`td[id="remaining-${mealName}-calories"]`).append(remainingCals).css('color', 'green');
+	        } else {
+	          $(`td[id="remaining-${mealName}-calories"]`).append(remainingCals).css('color', 'red');
+	        }
+	      });
 	    });
 	  });
 	};
 
 	module.exports = Meal;
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	const $ = __webpack_require__(2);
+	const Food = __webpack_require__(3);
+	const Meal = __webpack_require__(6);
+	const MealFood = __webpack_require__(5);
+
+	let total = 0;
+	const meals = {
+	  breakfast: 1,
+	  lunch: 2,
+	  dinner: 3,
+	  snack: 4
+	};
+	const mealCalories = {
+	  "breakfast": 400,
+	  "lunch": 600,
+	  "dinner": 800,
+	  "snack": 200
+	};
+
+	function uncheckCheckboxes() {
+	  $('#diary-foods-table input:checked').prop('checked', false);
+	}
+
+	function createMealTable() {
+	  Object.keys(mealCalories).forEach(function (meal) {
+	    Meal.toHTML(meals[meal]).then(function (foods) {
+	      $(`#${meal}`).append(foods);
+	    }).then(function () {
+
+	      Meal.totalCalories(meals[meal]).then(function (calories) {
+	        $(`td[id="${meal}-calories"]`).append(calories);
+	        let remainingCals = calories;
+	        $(`#${meal} .calories`).each(function () {
+	          remainingCals -= parseInt(this.innerHTML);
+	        }).promise().done(function () {
+	          if (remainingCals >= 0) {
+	            $(`td[id="remaining-${meal}-calories"]`).append(remainingCals).css('color', 'green');
+	          } else {
+	            $(`td[id="remaining-${meal}-calories"]`).append(remainingCals).css('color', 'red');
+	          }
+	        });
+	      });
+	    });
+	  });
+	}
+
+	$(function () {
+	  Food.allFoodsToHTML("checkBox").then(function (foodsHTML) {
+	    $('#diary-foods-table').append(foodsHTML);
+	  });
+
+	  $('.meal-table').on('click', function (event) {
+	    event.preventDefault();
+	    if ($(event.target.parentElement).hasClass("delete-button")) {
+	      const foodId = parseInt(event.target.id);
+	      const mealName = event.target.parentElement.parentElement.parentElement.parentElement.id;
+	      const mealId = meals[mealName];
+	      // $(event.target.parentElement.parentElement.parentElement).remove()
+	      const mealFoodId = parseInt(event.target.name);
+	      MealFood.destroy(mealFoodId, mealId, mealName);
+	    }
+	  });
+
+	  createMealTable();
+
+	  // $('button#add-food-to-index-button').on('click', function(event){
+	  //   event.preventDefault()
+	  //   
+	  //   <link rel="/foods.html">
+	  // })
+
+	  $('button#add-food-to-meal-button').on('click', function (event) {
+	    event.preventDefault();
+
+	    const mealName = $('#meal-dropdown option:selected')[0].value;
+	    const mealId = meals[mealName];
+
+	    const foods = $('#diary-foods-table input:checked');
+	    foods.each(function (i) {
+	      var foodId = this.id;
+	      MealFood.create(mealId, parseInt(foodId)).then(function () {
+	        if (i == foods.length - 1) {
+	          Meal.updateTable(mealId, mealName);
+	          uncheckCheckboxes();
+	        }
+	      });
+	    });
+	  });
+	});
 
 /***/ })
 /******/ ]);
