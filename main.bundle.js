@@ -10688,10 +10688,8 @@
 	    });
 	  });
 	}
-	let count = 1;
 	function sortTable(n) {
 	  $('#sort-calories').on('click', function (event) {
-	    // event.preventDefault()
 	    let table,
 	        rows,
 	        switching,
@@ -10764,7 +10762,6 @@
 	  foodDom.searchFoods();
 
 	  createMealTable();
-	  foodDom.searchFoods();
 
 	  $('button#add-food-to-meal-button').on('click', function (event) {
 	    event.preventDefault();
