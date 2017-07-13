@@ -10688,8 +10688,60 @@
 	    });
 	  });
 	}
+	let count = 1;
+	function sortTable(n) {
+	  $('#sort-calories').on('click', function (event) {
+	    // event.preventDefault()
+	    let table,
+	        rows,
+	        switching,
+	        original,
+	        i,
+	        x,
+	        y,
+	        shouldSwitch,
+	        direction,
+	        switchcount = 0;
+	    table = document.getElementById('diary-foods-table');
+	    direction = 'asc';
+	    switching = true;
 
-	$(function () {
+	    while (switching) {
+	      switching = false;
+	      rows = table.getElementsByTagName('TR');
+	      for (i = 1; i < rows.length - 1; i++) {
+	        shouldSwitch = false;
+
+	        x = rows[i].getElementsByTagName('TD')[n];
+	        y = rows[i + 1].getElementsByTagName('TD')[n];
+
+	        if (direction == 'asc') {
+	          if (parseInt(x.children[0].innerHTML) > parseInt(y.children[0].innerHTML)) {
+	            shouldSwitch = true;
+	            break;
+	          }
+	        } else if (direction == 'desc') {
+	          if (parseInt(x.children[0].innerHTML) < parseInt(y.children[0].innerHTML)) {
+	            shouldSwitch = true;
+	            break;
+	          }
+	        }
+	      }
+	      if (shouldSwitch) {
+	        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+	        switching = true;
+	        switchcount++;
+	      } else {
+	        if (switchcount == 0 && direction == 'asc') {
+	          direction = 'desc';
+	          switching = true;
+	        }
+	      }
+	    }
+	  });
+	}
+
+	function buildFoodsTable() {
 	  Food.allFoodsToHTML("checkBox").then(function (foodsHTML) {
 	    $('#diary-foods-table').append(foodsHTML);
 	  });
@@ -10704,6 +10756,12 @@
 	      MealFood.destroy(mealFoodId, mealId, mealName);
 	    }
 	  });
+	}
+
+	$(function () {
+	  buildFoodsTable();
+	  sortTable(1);
+	  foodDom.searchFoods();
 
 	  createMealTable();
 	  foodDom.searchFoods();
